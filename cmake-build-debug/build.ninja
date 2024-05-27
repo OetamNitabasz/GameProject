@@ -81,6 +81,14 @@ build CMakeFiles/GameProject.dir/Napisy.cpp.obj: CXX_COMPILER__GameProject_unsca
   OBJECT_DIR = CMakeFiles\GameProject.dir
   OBJECT_FILE_DIR = CMakeFiles\GameProject.dir
 
+build CMakeFiles/GameProject.dir/Napis.cpp.obj: CXX_COMPILER__GameProject_unscanned_Debug C$:/Users/Mateusz$ Szabatin/CLionProjects/GameProject/Napis.cpp || cmake_object_order_depends_target_GameProject
+  DEFINES = -DSFML_STATIC
+  DEP_FILE = CMakeFiles\GameProject.dir\Napis.cpp.obj.d
+  FLAGS = -g -std=gnu++20 -fdiagnostics-color=always
+  INCLUDES = -I"C:/Users/Mateusz Szabatin/CLionProjects/GameProject/cmake-build-debug/_deps/sfml-src/include"
+  OBJECT_DIR = CMakeFiles\GameProject.dir
+  OBJECT_FILE_DIR = CMakeFiles\GameProject.dir
+
 
 # =============================================================================
 # Link build statements for EXECUTABLE target GameProject
@@ -89,7 +97,7 @@ build CMakeFiles/GameProject.dir/Napisy.cpp.obj: CXX_COMPILER__GameProject_unsca
 #############################################
 # Link the executable GameProject.exe
 
-build GameProject.exe: CXX_EXECUTABLE_LINKER__GameProject_Debug CMakeFiles/GameProject.dir/main.cpp.obj CMakeFiles/GameProject.dir/Player.cpp.obj CMakeFiles/GameProject.dir/TileMap.cpp.obj CMakeFiles/GameProject.dir/Napisy.cpp.obj | _deps/sfml-build/lib/libsfml-graphics-s-d.a _deps/sfml-build/lib/libsfml-window-s-d.a _deps/sfml-build/lib/libsfml-system-s-d.a _deps/sfml-src/extlibs/libs-mingw/x64/libfreetype.a || _deps/sfml-build/lib/libsfml-graphics-s-d.a _deps/sfml-build/lib/libsfml-system-s-d.a _deps/sfml-build/lib/libsfml-window-s-d.a
+build GameProject.exe: CXX_EXECUTABLE_LINKER__GameProject_Debug CMakeFiles/GameProject.dir/main.cpp.obj CMakeFiles/GameProject.dir/Player.cpp.obj CMakeFiles/GameProject.dir/TileMap.cpp.obj CMakeFiles/GameProject.dir/Napisy.cpp.obj CMakeFiles/GameProject.dir/Napis.cpp.obj | _deps/sfml-build/lib/libsfml-graphics-s-d.a _deps/sfml-build/lib/libsfml-window-s-d.a _deps/sfml-build/lib/libsfml-system-s-d.a _deps/sfml-src/extlibs/libs-mingw/x64/libfreetype.a || _deps/sfml-build/lib/libsfml-graphics-s-d.a _deps/sfml-build/lib/libsfml-system-s-d.a _deps/sfml-build/lib/libsfml-window-s-d.a
   FLAGS = -g
   LINK_LIBRARIES = _deps/sfml-build/lib/libsfml-graphics-s-d.a  _deps/sfml-build/lib/libsfml-window-s-d.a  _deps/sfml-build/lib/libsfml-system-s-d.a  -lopengl32  -lwinmm  -lgdi32  _deps/sfml-src/extlibs/libs-mingw/x64/libfreetype.a  -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
   OBJECT_DIR = CMakeFiles\GameProject.dir

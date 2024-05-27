@@ -21,5 +21,7 @@ add_executable(GameProject main.cpp
         TileMap.cpp
         TileMap.h
         Napisy.cpp
-        Napisy.h)
+        Napisy.h
+        Napis.h
+        Napis.cpp)
 target_link_libraries(GameProject sfml-graphics)

@@ -11,16 +11,23 @@ int main() {
     }
     background.setTexture(b);
     Napisy napisy;
+    sf::Font czcionka = wczytajFont("../fonts/Roboto-Bold.ttf");
+    napisy.dodaj(Napis("PJATK", 24, czcionka,
+                       sf::Text::Bold, sf::Color::Cyan, 0, 1));
+    napisy.dodaj(Napis("POPO", 24, czcionka,
+                       sf::Text::Bold, sf::Color::Red, 30, 2));
     while(window.isOpen()) {
         auto event = sf::Event();
         while(window.pollEvent(event)) {
             if(event.type == sf::Event::Closed)
                 window.close();
         }
-       // window.draw(background);
+        // window.draw(background);
+        window.setFramerateLimit(100);
         window.clear();
-        napisy.rysuj(window);
+        napisy.wyswietl(window);
         window.display();
 
     }
+    std::cout << "Ile zostalo zgubionych napisow: " + napisy.zgubioneNapisy() << std::endl;
 }

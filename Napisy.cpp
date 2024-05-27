@@ -2,25 +2,32 @@
 // Created by Mateusz Szabatin on 20.05.2024.
 //
 #include "Napisy.h"
+#include "Napis.h"
 #include <string>
 #include <iostream>
 
-sf::Font wczytajFont(const std::string& plik);
 
-Napisy::Napisy() {
-    //czcionka1 = wczytajFont("C:\\Windows\\Fonts\\Arial.ttf");
-    czcionka1 = wczytajFont("../fonts/Roboto-Bold.ttf");
+void Napisy::wyswietl(sf::RenderWindow &window) {
+    //w ramach jednej petli trzeba kasowac elementy od razu bez remove_if
+    for(Napis& n : napisy) {
+        if(!n.rysuj(window)) {
+            zgubione++;
+        }
+    }
+    napisy.remove_if([](auto napis)
+    {
+        auto z = napis.zaEkranem();
+        return z;});
 }
-void Napisy::rysuj(sf::RenderWindow &window) {
-    sf::Text tekst;
-    tekst.setFont(czcionka1); //
-    tekst.setStyle(sf::Text::Bold);
-    tekst.setPosition(pozycjaX, 0);
-    tekst.setString("PJATK");
-    tekst.setCharacterSize(24);
-    tekst.setFillColor(sf::Color::Cyan);
-    window.draw(tekst);
+
+int Napisy::zgubioneNapisy() {
+    return zgubione;
 }
+
+void Napisy::dodaj(Napis napis) {
+    napisy.push_back(napis);
+}
+
 sf::Font wczytajFont(const std::string& plik) {
     sf::Font font;
     if(!font.loadFromFile(plik)) {
