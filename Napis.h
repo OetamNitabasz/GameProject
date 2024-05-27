@@ -10,15 +10,19 @@
 class Napis {
 
 public:
-    Napis(const std::string napis, unsigned int rozmiar, sf::Font czcionka, sf::Text::Style styl,
+    Napis(const std::string napis, unsigned int rozmiar, sf::Font& czcionka, sf::Text::Style styl,
           sf::Color kolor, float y, float predkosc);
-    void rysuj(sf::RenderWindow& window);
+    bool rysuj(sf::RenderWindow& window);
+    Napis(const Napis& napis);
+    bool zaEkranem();
+
 
 private:
     sf::Text tekst;
     float speed;
-    sf::Font czcionka1;
+    sf::Font& czcionka1;
+    bool pozaEkranem = false;
+
 };
 
 #endif //GAMEPROJECT_NAPIS_H
-
