@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.28)
+cmake_minimum_required(VERSION 3.24)
 project(GameProject)
 
 set(CMAKE_CXX_STANDARD 20)
@@ -22,6 +22,6 @@ add_executable(GameProject main.cpp
         TileMap.h
         Napisy.cpp
         Napisy.h
-        Napis.h
-        Napis.cpp)
+        Napis.cpp
+        Napis.h)
 target_link_libraries(GameProject sfml-graphics)
