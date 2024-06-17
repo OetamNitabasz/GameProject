@@ -14,10 +14,29 @@ void Napisy::wyswietl(sf::RenderWindow &window) {
             zgubione++;
         }
     }
-    napisy.remove_if([](auto napis)
+    napisy.remove_if([](Napis& napis)
     {
         auto z = napis.zaEkranem();
         return z;});
+}
+
+bool Napisy::sprawdz(std::string slowo) {
+    /*for(const Napis& n : napisy) {
+        if(n.sprawdzSlowo(slowo)) {
+            napisy.remove(n);
+        }
+    }*/
+    /*napisy.remove_if([&] (Napis& napis) {
+        return napis.sprawdzSlowo(slowo);
+    });*/
+    for(auto itr = napisy.begin(); itr != napisy.end();) {
+        //if(itr->sprawdzSlowo(slowo)) {
+        if(true) {
+            itr = napisy.erase(itr);
+        } else {
+            ++itr;
+        }
+    }
 }
 
 int Napisy::zgubioneNapisy() {

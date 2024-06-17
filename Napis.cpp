@@ -10,6 +10,7 @@ Napis::Napis(const Napis &napis):czcionka1(napis.czcionka1) {
     tekst = napis.tekst;
     speed = napis.speed;
     tekst.setFont(czcionka1);
+    pozaEkranem = napis.pozaEkranem;
 }
 
 Napis::Napis(const std::string napis, unsigned int rozmiar, sf::Font& czcionka, sf::Text::Style styl,
@@ -37,4 +38,8 @@ bool Napis::rysuj(sf::RenderWindow &window) {
     }
     window.draw(tekst);
     return true;
+}
+
+bool Napis::sprawdzSlowo(const std::string &slowo) const {
+    return slowo == tekst.getString();
 }

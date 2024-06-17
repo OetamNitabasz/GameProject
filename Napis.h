@@ -15,6 +15,7 @@ public:
     bool rysuj(sf::RenderWindow& window);
     Napis(const Napis& napis);
     bool zaEkranem();
+    bool sprawdzSlowo(const std::string& slowo) const;
 
 
 private:

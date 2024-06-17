@@ -16,6 +16,7 @@ public:
     void wyswietl(sf::RenderWindow& window);
     void dodaj(Napis napis);
     int zgubioneNapisy();
+    bool sprawdz(std::string slowo);
 
 private:
     sf::Font czcionka1;
