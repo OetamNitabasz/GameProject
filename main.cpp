@@ -27,7 +27,7 @@ int main() {
                     if(event.text.unicode > 32 && event.text.unicode <= 126) {
                         litery += (char) event.text.unicode;
                         std::cout << litery << std::endl;
-                        napisy.sprawdz(litery);
+                        //napisy.sprawdz(litery);
                     }
                 }
             }
