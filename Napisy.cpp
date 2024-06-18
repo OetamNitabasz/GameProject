@@ -31,7 +31,9 @@ bool Napisy::sprawdz(std::string slowo) {
     });*/
     for(auto itr = napisy.begin(); itr != napisy.end();) {
         //if(itr->sprawdzSlowo(slowo)) {
-        if(true) {
+        usuniete = false;
+        if(itr->sprawdzSlowo(slowo)) {
+            usuniete = true;
             itr = napisy.erase(itr);
         } else {
             ++itr;

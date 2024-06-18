@@ -23,5 +23,6 @@ add_executable(GameProject main.cpp
         Napisy.cpp
         Napisy.h
         Napis.cpp
-        Napis.h)
+        Napis.h
+)
 target_link_libraries(GameProject sfml-graphics)
