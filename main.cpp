@@ -15,7 +15,7 @@ int main() {
         background.setTexture(b);
 
         sf::Font czcionka = wczytajFont("../fonts/Roboto-Bold.ttf");
-        napisy.dodaj(Napis("PJATK", 24, czcionka,
+        napisy.dodaj(Napis("pjatk", 24, czcionka,
                            sf::Text::Bold, sf::Color::Cyan, 0, 1));
         napisy.dodaj(Napis("POPO", 24, czcionka,
                            sf::Text::Bold, sf::Color::Red, 30, 2));
@@ -24,13 +24,22 @@ int main() {
             while (window.pollEvent(event)) {
                 if (event.type == sf::Event::Closed)
                     window.close();
-               else if(event.type == sf::Event::TextEntered){
+               else if(event.type == sf::Event::TextEntered) {
                     if(event.text.unicode > 32 && event.text.unicode <= 126) {
                         litery += (char) event.text.unicode;
                         std::cout << litery << std::endl;
-                        napisy.sprawdz(litery);
+                        if(napisy.sprawdz(litery)) {
+                            litery.clear();
+                        }
                     }
-                }
+                } else if(event.type == sf::Event::KeyPressed) {
+                   if(event.key.code == sf::Keyboard::BackSpace) {
+                       if(!litery.empty())
+                           litery.pop_back();
+                   } else if(event.key.code == sf::Keyboard::Escape) {
+                       litery.clear();
+                   }
+               }
             }
             // window.draw(background);
             window.setFramerateLimit(100);

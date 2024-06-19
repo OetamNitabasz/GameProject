@@ -41,5 +41,16 @@ bool Napis::rysuj(sf::RenderWindow &window) {
 }
 
 bool Napis::sprawdzSlowo(const std::string &slowo) const {
-    return slowo == tekst.getString();
+    std::string result;
+    result.resize(slowo.size());
+    std::transform(slowo.begin(), slowo.end(), result.begin(), [](unsigned char c){
+        return std::tolower(c);
+    });
+    //todo przeniesc do konstruktora
+    std::string txt = tekst.getString();
+    std::transform(txt.begin(), txt.end(), txt.begin(), [](unsigned char c){
+        return std::tolower(c);
+    });
+
+    return result == txt;
 }

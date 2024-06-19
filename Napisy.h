@@ -16,14 +16,13 @@ public:
     void wyswietl(sf::RenderWindow& window);
     void dodaj(Napis napis);
     int zgubioneNapisy();
-    bool sprawdz(std::string slowo);
-    void wyswietlKlawiature(sf::RenderWindow& window);
+    bool sprawdz(const std::string &slowo);
+
 
 private:
     sf::Font czcionka1;
     std::list<Napis> napisy;
     int zgubione = 0;
-    bool usuniete = false;
 };
 
 #endif //GAMEPROJECT_NAPISY_H

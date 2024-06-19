@@ -20,25 +20,17 @@ void Napisy::wyswietl(sf::RenderWindow &window) {
         return z;});
 }
 
-bool Napisy::sprawdz(std::string slowo) {
-    /*for(const Napis& n : napisy) {
-        if(n.sprawdzSlowo(slowo)) {
-            napisy.remove(n);
+bool Napisy::sprawdz(const std::string &slowo) {
+        bool usuniete = false;
+        for(auto itr = napisy.begin(); itr != napisy.end();) {
+            if(itr->sprawdzSlowo(slowo)) {
+                usuniete = true;
+                itr = napisy.erase(itr);
+            } else {
+                ++itr;
+            }
         }
-    }*/
-    /*napisy.remove_if([&] (Napis& napis) {
-        return napis.sprawdzSlowo(slowo);
-    });*/
-    for(auto itr = napisy.begin(); itr != napisy.end();) {
-        //if(itr->sprawdzSlowo(slowo)) {
-        usuniete = false;
-        if(itr->sprawdzSlowo(slowo)) {
-            usuniete = true;
-            itr = napisy.erase(itr);
-        } else {
-            ++itr;
-        }
-    }
+        return usuniete;
 }
 
 int Napisy::zgubioneNapisy() {
