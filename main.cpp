@@ -7,7 +7,7 @@ int main() {
         sf::Font czcionka = wczytajFont("../fonts/Roboto-Bold.ttf");
         sf::RenderWindow window(sf::VideoMode(800, 600), "Monkey typer",
                                 sf::Style::Titlebar | sf::Style::Close);
-        Napisy napisy;
+        Napisy napisy(czcionka, sf::Vector2u(800, 550));
         Konsola konsola(50, czcionka, window.getSize());
         std::string litery;
         sf::Texture b;
@@ -16,10 +16,7 @@ int main() {
             std::cerr << "blad" << std::endl;
         }
         background.setTexture(b);
-        napisy.dodaj(Napis("pjatk", 24, czcionka,
-                           sf::Text::Bold, sf::Color::Cyan, 0, 1));
-        napisy.dodaj(Napis("POPO", 24, czcionka,
-                           sf::Text::Bold, sf::Color::Red, 30, 2));
+
         while (window.isOpen()) {
             auto event = sf::Event();
             while (window.pollEvent(event)) {

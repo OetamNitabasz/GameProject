@@ -13,14 +13,18 @@ sf::Font wczytajFont(const std::string& plik);
 
 class Napisy {
 public:
+    Napisy(sf::Font &czcionka, sf::Vector2u size);
     void wyswietl(sf::RenderWindow& window);
-    void dodaj(Napis napis);
     int zgubioneNapisy();
     bool sprawdz(const std::string &slowo);
 
 
 private:
-    sf::Font czcionka1;
+    void wczytaj(std::string plik);
+    void dodaj(Napis napis);
+
+    std::vector<std::string> slowa;
+    sf::Font &czcionka1;
     std::list<Napis> napisy;
     int zgubione = 0;
 };
