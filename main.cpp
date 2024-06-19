@@ -28,10 +28,10 @@ int main() {
                else if(event.type == sf::Event::TextEntered) {
                     if(event.text.unicode > 32 && event.text.unicode <= 126) {
                         litery += (char) event.text.unicode;
-                        konsola.ustawSlowo(litery);
                         if(napisy.sprawdz(litery)) {
                             litery.clear();
                         }
+                        konsola.ustawSlowo(litery);
                     }
                 } else if(event.type == sf::Event::KeyPressed) {
                    if(event.key.code == sf::Keyboard::BackSpace) {
