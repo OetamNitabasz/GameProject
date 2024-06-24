@@ -6,6 +6,7 @@
 #define GAMEPROJECT_NAPIS_H
 
 #include <SFML/Graphics.hpp>
+#include "Konsola.h"
 
 class Napis {
 
@@ -14,16 +15,17 @@ public:
           sf::Color kolor, float y, float predkosc);
     bool rysuj(sf::RenderWindow& window);
     Napis(const Napis& napis);
-    bool zaEkranem();
-    bool sprawdzSlowo(const std::string& slowo) const;
+    int sprawdzSlowo(const std::string& slowo);
+    float poziom();
 
 
 private:
+    int punktacja();
+
+    std::string lowerCase;
     sf::Text tekst;
     float speed;
     sf::Font& czcionka1;
-    bool pozaEkranem = false;
-
 };
 
 #endif //GAMEPROJECT_NAPIS_H

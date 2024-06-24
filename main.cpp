@@ -9,7 +9,7 @@ int main() {
                                 sf::Style::Titlebar | sf::Style::Close);
         Napisy napisy(czcionka, sf::Vector2u(800, 550));
         Konsola konsola(50, czcionka, window.getSize());
-        std::string litery;
+        std::string wprowadzanyNapis;
         sf::Texture b;
         sf::Sprite background;
         if (!b.loadFromFile("../background.jpg")) {
@@ -24,21 +24,22 @@ int main() {
                     window.close();
                else if(event.type == sf::Event::TextEntered) {
                     if(event.text.unicode > 32 && event.text.unicode <= 126) {
-                        litery += (char) event.text.unicode;
-                        if(napisy.sprawdz(litery)) {
-                            litery.clear();
+                        wprowadzanyNapis += (char) event.text.unicode;
+                        if(napisy.sprawdz(wprowadzanyNapis)) {
+                            wprowadzanyNapis.clear();
                         }
-                        konsola.ustawSlowo(litery);
+                        konsola.ustawSlowo(wprowadzanyNapis);
+                        konsola.ustawPunktacje(napisy.punktacja());
                     }
                 } else if(event.type == sf::Event::KeyPressed) {
                    if(event.key.code == sf::Keyboard::BackSpace) {
-                       if(!litery.empty()) {
-                           litery.pop_back();
-                           konsola.ustawSlowo(litery);
+                       if(!wprowadzanyNapis.empty()) {
+                           wprowadzanyNapis.pop_back();
+                           konsola.ustawSlowo(wprowadzanyNapis);
                        }
                    } else if(event.key.code == sf::Keyboard::Escape) {
-                       litery.clear();
-                       konsola.ustawSlowo(litery);
+                       wprowadzanyNapis.clear();
+                       konsola.ustawSlowo(wprowadzanyNapis);
                    }
                }
             }
@@ -47,6 +48,10 @@ int main() {
             window.clear();
             konsola.wyswietl(window);
             napisy.wyswietl(window);
+            if(napisy.zgubioneNapisy() >= 100) {
+                window.close(); //tymaczasowo
+                //wyswietlic game over + zrestartowac gre
+            }
             window.display();
 
         }

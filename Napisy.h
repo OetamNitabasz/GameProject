@@ -8,6 +8,7 @@
 #include <SFML/Graphics.hpp>
 #include "Napis.h"
 #include <list>
+#include <random>
 
 sf::Font wczytajFont(const std::string& plik);
 
@@ -17,12 +18,13 @@ public:
     void wyswietl(sf::RenderWindow& window);
     int zgubioneNapisy();
     bool sprawdz(const std::string &slowo);
+    int punktacja();
 
 
 private:
     void wczytaj(std::string plik);
-    void dodaj(Napis napis);
-
+    int punkty = 0;
+    std::mt19937 rng;
     std::vector<std::string> slowa;
     sf::Font &czcionka1;
     std::list<Napis> napisy;

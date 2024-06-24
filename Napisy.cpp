@@ -8,23 +8,22 @@
 #include <fstream>
 #include <random>
 
+Napis generatorNapisu(const std::vector<std::string> &slowa, float offsetY, std::mt19937 &rng, sf::Font &czcionka) {
+    std::uniform_int_distribution<std::mt19937::result_type> kolejneSlowo(1, slowa.size());
+    std::uniform_int_distribution<std::mt19937::result_type> predkosc(1, 3);
+    auto x = kolejneSlowo(rng) - 1;
+    auto n = Napis(slowa[x], 24, czcionka, sf::Text::Bold, sf::Color::Cyan,
+                   offsetY, predkosc(rng));
+    return n;
+}
 
 Napisy::Napisy(sf::Font &czcionka, sf::Vector2u size):czcionka1(czcionka) {
     wczytaj("../fonts/slowa.txt");
-    //todo czy nie zamienic na stare C?
     std::random_device dev;
-    std::mt19937 rng(dev());
-    std::uniform_int_distribution<std::mt19937::result_type> dist(1,slowa.size());
-    std::uniform_int_distribution<std::mt19937::result_type> dist3(1,3);
+    rng = std::mt19937(dev());
     for(int i = 0; i < 20; i++) {
-        auto x = dist(rng);
-        dodaj(Napis(slowa[x], 24, czcionka1, sf::Text::Bold, sf::Color::Cyan,
-                    i * 25, dist3(rng)));
+        napisy.push_back(generatorNapisu(slowa, i * 25, rng, czcionka1));
     }
-    /*dodaj(Napis("pjatk", 24, czcionka1,
-                       sf::Text::Bold, sf::Color::Cyan, 0, 1));
-    dodaj(Napis("POPO", 24, czcionka1,
-                       sf::Text::Bold, sf::Color::Red, 30, 2));*/
 }
 
 void Napisy::wczytaj(std::string nazwaPliku) {
@@ -37,25 +36,28 @@ void Napisy::wczytaj(std::string nazwaPliku) {
 }
 
 void Napisy::wyswietl(sf::RenderWindow &window) {
-    //w ramach jednej petli trzeba kasowac elementy od razu bez remove_if
-    for(Napis& n : napisy) {
-        if(!n.rysuj(window)) {
+    for(auto i = napisy.begin(); i != napisy.end();) {
+        if(!i->rysuj(window)) {
             zgubione++;
+            auto offsetY = i->poziom();
+            i = napisy.erase(i);
+            napisy.insert(i, generatorNapisu(slowa, offsetY, rng, czcionka1));
+        } else {
+            ++i;
         }
     }
-    napisy.remove_if([](Napis& napis)
-    {
-        auto z = napis.zaEkranem();
-        return z;});
 }
 
 bool Napisy::sprawdz(const std::string &slowo) {
-    //todo zastanowic sie czy kasowac wszystkie wystapienia czy tylko jedno
         bool usuniete = false;
         for(auto itr = napisy.begin(); itr != napisy.end();) {
-            if(itr->sprawdzSlowo(slowo)) {
+            auto pkt = itr->sprawdzSlowo(slowo);
+            if(pkt) {
                 usuniete = true;
+                auto offsetY = itr->poziom();
                 itr = napisy.erase(itr);
+                napisy.insert(itr, generatorNapisu(slowa, offsetY, rng, czcionka1));
+                punkty += pkt;
             } else {
                 ++itr;
             }
@@ -67,9 +69,6 @@ int Napisy::zgubioneNapisy() {
     return zgubione;
 }
 
-void Napisy::dodaj(Napis napis) {
-    napisy.push_back(napis);
-}
 
 sf::Font wczytajFont(const std::string& plik) {
     sf::Font font;
@@ -78,4 +77,8 @@ sf::Font wczytajFont(const std::string& plik) {
         //todo zastosowac wyjatki/przerwac program
     }
     return font;
+}
+
+int Napisy::punktacja() {
+    return punkty;
 }
