@@ -3,6 +3,7 @@
 //
 
 #include <SFML/Graphics.hpp>
+#include <sstream>
 #include "Napis.h"
 
 void zmniejsz(std::string &txt) {
@@ -18,19 +19,24 @@ Napis::Napis(const Napis &napis):czcionka1(napis.czcionka1) {
     lowerCase = napis.lowerCase;
 }
 
-Napis::Napis(const std::string napis, unsigned int rozmiar, sf::Font& czcionka, sf::Text::Style styl,
-             sf::Color kolor, float y, float predkosc): czcionka1(czcionka) {
+
+
+Napis::Napis(const std::string napis, unsigned int rozmiar, sf::Font& czcionka,
+             sf::Color kolor, float x, float y, float predkosc): czcionka1(czcionka) {
 
     tekst.setString(napis);
     tekst.setCharacterSize(rozmiar);
 
-    tekst.setStyle(styl);
     tekst.setFillColor(kolor);
-    tekst.setPosition(0, y);
+    tekst.setPosition(x, y);
     speed = predkosc;
 
     lowerCase = tekst.getString();
     zmniejsz(lowerCase);
+}
+
+void Napis::ustawRozmiar(int wielkosc) {
+    tekst.setCharacterSize(wielkosc);
 }
 
 float Napis::poziom() {
@@ -46,12 +52,12 @@ bool Napis::rysuj(sf::RenderWindow &window) {
     return true;
 }
 
-int Napis::punktacja() {
-    return tekst.getString().getSize();
+float Napis::punktacja() {
+    return static_cast<float> (tekst.getString().getSize());
 }
 
 
-int Napis::sprawdzSlowo(const std::string &slowo) {
+float Napis::sprawdzSlowo(const std::string &slowo) {
     std::string result;
     result.resize(slowo.size());
     std::transform(slowo.begin(), slowo.end(), result.begin(), [](unsigned char c){
@@ -64,3 +70,28 @@ int Napis::sprawdzSlowo(const std::string &slowo) {
     else
         return punktacja();
 }
+
+void Napis::zapisz(std::ostream &plik) {
+    plik << tekst.getPosition().x << ","
+    << tekst.getPosition().y << ","
+    << tekst.getFillColor().toInteger() << ","
+    << tekst.getFont()->getInfo().family << ","
+    << speed << ","
+    << tekst.getCharacterSize() << ","
+    << tekst.getString().toAnsiString() << std::endl;
+}
+
+Napis Napis::wczytaj(const std::string &linia, Czcionki &czcionki) {
+    auto ss = std::stringstream(linia);
+    std::string slowo;
+    std::vector<std::string> dane;
+    while(!ss.eof()) {
+        std::getline(ss, slowo, ',');
+        dane.push_back(slowo);
+    }
+    auto napis = Napis(dane[6], std::stoi(dane[5]), czcionki.daj(dane[3]),
+                       sf::Color(std::stoul(dane[2])),
+                       std::stof(dane[0]) ,std::stof(dane[1]), std::stof(dane[4]));
+    return napis;
+}
+

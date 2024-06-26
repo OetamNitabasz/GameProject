@@ -7,28 +7,44 @@
 
 #include <SFML/Graphics.hpp>
 #include "Napis.h"
+#include "Czcionki.h"
 #include <list>
 #include <random>
-
-sf::Font wczytajFont(const std::string& plik);
+enum WielkoscNapisu {
+    Male,
+    Srednie,
+    Duze
+};
 
 class Napisy {
 public:
-    Napisy(sf::Font &czcionka, sf::Vector2u size);
+    Napisy(Czcionki &czcionki);
     void wyswietl(sf::RenderWindow& window);
     int zgubioneNapisy();
     bool sprawdz(const std::string &slowo);
-    int punktacja();
-
+    float punktacja();
+    void ustawWielkosc(WielkoscNapisu nowyRozmiar);
+    void przyspiesz();
+    void zwolnij();
+    float predkosc();
+    WielkoscNapisu wielkoscNapisow();
+    void zapisz();
+    void wczytaj();
 
 private:
+    Napis generujNapis(float offsetY);
     void wczytaj(std::string plik);
-    int punkty = 0;
+
+    WielkoscNapisu rozmiar;
+
+    float bazowaPredkosc = 1;
+    float punkty = 0;
     std::mt19937 rng;
     std::vector<std::string> slowa;
-    sf::Font &czcionka1;
+    Czcionki &czcionki;
     std::list<Napis> napisy;
     int zgubione = 0;
+
 };
 
 #endif //GAMEPROJECT_NAPISY_H

@@ -4,23 +4,24 @@
 
 #ifndef GAMEPROJECT_NAPIS_H
 #define GAMEPROJECT_NAPIS_H
-
 #include <SFML/Graphics.hpp>
-#include "Konsola.h"
+#include "Czcionki.h"
 
 class Napis {
 
 public:
-    Napis(const std::string napis, unsigned int rozmiar, sf::Font& czcionka, sf::Text::Style styl,
-          sf::Color kolor, float y, float predkosc);
+    Napis(const std::string napis, unsigned int rozmiar, sf::Font& czcionka,
+          sf::Color kolor, float x ,float y, float predkosc);
     bool rysuj(sf::RenderWindow& window);
     Napis(const Napis& napis);
-    int sprawdzSlowo(const std::string& slowo);
+    float sprawdzSlowo(const std::string& slowo);
     float poziom();
-
+    void ustawRozmiar(int wielkosc);
+    void zapisz(std::ostream &plik);
+    static Napis wczytaj(const std::string &linia, Czcionki &czcionki);
 
 private:
-    int punktacja();
+    float punktacja();
 
     std::string lowerCase;
     sf::Text tekst;

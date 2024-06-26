@@ -16,10 +16,6 @@ FetchContent_Declare(
 FetchContent_MakeAvailable(SFML)
 
 add_executable(GameProject main.cpp
-        Player.cpp
-        Player.h
-        TileMap.cpp
-        TileMap.h
         Napisy.cpp
         Napisy.h
         Napis.cpp
@@ -28,5 +24,9 @@ add_executable(GameProject main.cpp
         Konsola.cpp
         Konsola.h
         Konsola.h
+        Czcionki.cpp
+        Czcionki.cpp
+        Czcionki.h
+        Czcionki.h
 )
 target_link_libraries(GameProject sfml-graphics)
